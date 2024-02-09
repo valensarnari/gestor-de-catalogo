@@ -11,5 +11,11 @@ namespace dominio
         // atributos y propiedades
         public int Id { get; set; }
         public string Descripcion { get; set; }
+
+        // metodos
+        public override string ToString()
+        {
+            return Descripcion;
+        }
     }
 }
