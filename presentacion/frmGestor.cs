@@ -24,6 +24,11 @@ namespace presentacion
         private void frmGestor_Load(object sender, EventArgs e)
         {
             cargar();
+            cboCampo.Items.Clear();
+            cboCampo.Items.Add("Código");
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Descripción");
+            cboCampo.Items.Add("Precio");
         }
 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
@@ -90,6 +95,57 @@ namespace presentacion
             }
         }
 
+        private void btnVer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Articulo select = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                frmInformacion frmInformacion = new frmInformacion(select);
+                frmInformacion.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void cboCampo_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cboCampo.Text == "Precio")
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Mayor a");
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.Items.Add("Igual a");
+            }
+            else
+            {
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Comienza con");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.Items.Add("Contiene");
+            }
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                string campo = cboCampo.SelectedItem.ToString();
+                string criterio = cboCriterio.SelectedItem.ToString();
+                string filtro = txtFiltro.Text;
+                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
+                cargarImagen(listaArticulos[0].ImagenUrl);
+                ocultarColumnas();
+                ocultarFiltro();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         // ----------------------------------------
         private void cargar()
         {
@@ -98,7 +154,7 @@ namespace presentacion
             dgvArticulos.DataSource = listaArticulos;
             ocultarColumnas();
             cargarImagen(listaArticulos[0].ImagenUrl);
-
+            dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "0.00";
         }
 
         private void ocultarFiltro()

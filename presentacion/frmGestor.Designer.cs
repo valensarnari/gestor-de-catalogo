@@ -56,7 +56,7 @@
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvArticulos.Size = new System.Drawing.Size(646, 478);
-            this.dgvArticulos.TabIndex = 9;
+            this.dgvArticulos.TabIndex = 0;
             this.dgvArticulos.SelectionChanged += new System.EventHandler(this.dgvArticulos_SelectionChanged);
             // 
             // btnAgregar
@@ -64,7 +64,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(30, 141);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(199, 36);
-            this.btnAgregar.TabIndex = 1;
+            this.btnAgregar.TabIndex = 2;
             this.btnAgregar.Text = "Agregar artículo";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -74,7 +74,7 @@
             this.btnModificar.Location = new System.Drawing.Point(30, 193);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(199, 36);
-            this.btnModificar.TabIndex = 2;
+            this.btnModificar.TabIndex = 3;
             this.btnModificar.Text = "Modificar artículo";
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
@@ -84,7 +84,7 @@
             this.btnEliminar.Location = new System.Drawing.Point(30, 245);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(199, 36);
-            this.btnEliminar.TabIndex = 3;
+            this.btnEliminar.TabIndex = 4;
             this.btnEliminar.Text = "Eliminar artículo";
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
@@ -94,7 +94,7 @@
             this.btnBusqueda.Location = new System.Drawing.Point(30, 351);
             this.btnBusqueda.Name = "btnBusqueda";
             this.btnBusqueda.Size = new System.Drawing.Size(199, 36);
-            this.btnBusqueda.TabIndex = 4;
+            this.btnBusqueda.TabIndex = 5;
             this.btnBusqueda.Text = "Busqueda avanzada";
             this.btnBusqueda.UseVisualStyleBackColor = true;
             this.btnBusqueda.Click += new System.EventHandler(this.btnBusqueda_Click);
@@ -104,9 +104,10 @@
             this.btnVer.Location = new System.Drawing.Point(30, 89);
             this.btnVer.Name = "btnVer";
             this.btnVer.Size = new System.Drawing.Size(199, 36);
-            this.btnVer.TabIndex = 0;
+            this.btnVer.TabIndex = 1;
             this.btnVer.Text = "Ver artículo";
             this.btnVer.UseVisualStyleBackColor = true;
+            this.btnVer.Click += new System.EventHandler(this.btnVer_Click);
             // 
             // lblTitulo
             // 
@@ -144,7 +145,8 @@
             this.cboCampo.Location = new System.Drawing.Point(71, 415);
             this.cboCampo.Name = "cboCampo";
             this.cboCampo.Size = new System.Drawing.Size(158, 21);
-            this.cboCampo.TabIndex = 5;
+            this.cboCampo.TabIndex = 6;
+            this.cboCampo.SelectedValueChanged += new System.EventHandler(this.cboCampo_SelectedValueChanged);
             // 
             // cboCriterio
             // 
@@ -153,7 +155,7 @@
             this.cboCriterio.Location = new System.Drawing.Point(71, 451);
             this.cboCriterio.Name = "cboCriterio";
             this.cboCriterio.Size = new System.Drawing.Size(158, 21);
-            this.cboCriterio.TabIndex = 6;
+            this.cboCriterio.TabIndex = 7;
             // 
             // lblCriterio
             // 
@@ -178,16 +180,17 @@
             this.txtFiltro.Location = new System.Drawing.Point(71, 495);
             this.txtFiltro.Name = "txtFiltro";
             this.txtFiltro.Size = new System.Drawing.Size(158, 20);
-            this.txtFiltro.TabIndex = 7;
+            this.txtFiltro.TabIndex = 8;
             // 
             // btnFiltrar
             // 
             this.btnFiltrar.Location = new System.Drawing.Point(71, 537);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(102, 31);
-            this.btnFiltrar.TabIndex = 8;
+            this.btnFiltrar.TabIndex = 9;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
             // frmGestor
             // 

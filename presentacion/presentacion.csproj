@@ -58,6 +58,12 @@
     <Compile Include="frmGestor.Designer.cs">
       <DependentUpon>frmGestor.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmInformacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInformacion.Designer.cs">
+      <DependentUpon>frmInformacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmAltaArticulo.resx">
@@ -65,6 +71,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmGestor.resx">
       <DependentUpon>frmGestor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInformacion.resx">
+      <DependentUpon>frmInformacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
