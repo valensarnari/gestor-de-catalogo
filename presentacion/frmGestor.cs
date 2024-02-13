@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,6 +42,7 @@ namespace presentacion
                 cboCampo.Visible = false;
                 lblCriterio.Visible = false;
                 cboCriterio.Visible = false;
+                lblFormato.Visible = false;
                 lblFiltro.Visible = false;
                 txtFiltro.Visible = false;
                 btnFiltrar.Visible = false;
@@ -132,13 +134,61 @@ namespace presentacion
             try
             {
                 ArticuloNegocio negocio = new ArticuloNegocio();
-                string campo = cboCampo.SelectedItem.ToString();
-                string criterio = cboCriterio.SelectedItem.ToString();
-                string filtro = txtFiltro.Text;
-                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
-                cargarImagen(listaArticulos[0].ImagenUrl);
-                ocultarColumnas();
-                ocultarFiltro();
+                string campo = "";
+                string criterio = "";
+                string filtro = "";
+
+                // verifico si hay algun campo vacio
+                if (cboCampo.SelectedItem != null)
+                {
+                    campo = cboCampo.SelectedItem.ToString();
+                    
+                    if (cboCriterio.SelectedItem != null)
+                    {
+                        criterio = cboCriterio.SelectedItem.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Verifique que Criterio no esté vacío.");
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Verifique que Campo y criterio no estén vacíos.");
+                    return;
+                }
+
+                
+                filtro = txtFiltro.Text;
+
+                // verifico que si esta seleccionado Precio, el formato sea el correcto
+                if (campo == "Precio")
+                {
+                    if (convertirNumero(filtro) == null)
+                    {
+                        MessageBox.Show("Por favor, ingrese un formato válido si selecciona Precio como campo.");
+                        return;
+                    }
+
+                    filtro = convertirNumero(filtro);
+                }
+
+                // agrego que reinicie la lista si el filtro esta vacio y el campo es Precio
+                if(filtro == "" && campo == "Precio")
+                {
+                    dgvArticulos.DataSource = negocio.listar();
+                    ocultarFiltro();
+                }
+                else
+                {
+                    dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
+
+                    cargarImagen(listaArticulos[0].ImagenUrl);
+                    ocultarColumnas();
+                    ocultarFiltro();
+                }
+                
             }
             catch (Exception ex)
             {
@@ -156,7 +206,6 @@ namespace presentacion
             cargarImagen(listaArticulos[0].ImagenUrl);
             dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "0.00";
         }
-
         private void ocultarFiltro()
         {
             if (lblCampo.Visible == true)
@@ -165,6 +214,7 @@ namespace presentacion
                 cboCampo.Visible = false;
                 lblCriterio.Visible = false;
                 cboCriterio.Visible = false;
+                lblFormato.Visible = false;
                 lblFiltro.Visible = false;
                 txtFiltro.Visible = false;
                 btnFiltrar.Visible = false;
@@ -175,18 +225,17 @@ namespace presentacion
                 cboCampo.Visible = true;
                 lblCriterio.Visible = true;
                 cboCriterio.Visible = true;
+                lblFormato.Visible = true;
                 lblFiltro.Visible = true;
                 txtFiltro.Visible = true;
                 btnFiltrar.Visible = true;
             }
         }
-
         private void ocultarColumnas()
         {
             dgvArticulos.Columns["ImagenUrl"].Visible = false;
             dgvArticulos.Columns["Id"].Visible = false;
         }
-
         private void cargarImagen(string imagen)
         {
             try
@@ -197,6 +246,42 @@ namespace presentacion
             {
                 pbxImagen.Load("https://www.kurin.com/wp-content/uploads/placeholder-square.jpg");
             }
+        }
+        private string convertirNumero(string texto)
+        {
+            int cont = 0;
+            string cadena = null;
+
+            // si la cadena esta vacia devolverla para reiniciar dgv
+            if (texto == "")
+                return texto;
+
+            // chequear si la cadena tiene algo que no sea un numero o ,
+            foreach (char caracter in texto)
+            {
+                if (!(char.IsNumber(caracter)) && !(caracter == ','))
+                    return null;
+            }
+
+            // si la cadena no tiene comas, le agrego el ,00
+            if (texto.Contains(',') == false)
+                texto += ",00";
+
+            // si la cadena tiene una coma, lo reemplaza por un punto para la consulta
+            foreach (char caracter in texto)
+            {
+                if (caracter == ',')
+                    cont++;
+
+                if (cont < 1)
+                    cadena = texto.Replace(',', '.');
+            }
+
+            // verifico si la cadena tiene mas de dos comas
+            if (cont > 1)
+                return null;
+
+            return cadena;
         }
         // ----------------------------------------
 

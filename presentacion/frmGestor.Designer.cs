@@ -43,6 +43,7 @@
             this.lblFiltro = new System.Windows.Forms.Label();
             this.txtFiltro = new System.Windows.Forms.TextBox();
             this.btnFiltrar = new System.Windows.Forms.Button();
+            this.lblFormato = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
             this.SuspendLayout();
@@ -184,7 +185,7 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(71, 537);
+            this.btnFiltrar.Location = new System.Drawing.Point(71, 550);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(102, 31);
             this.btnFiltrar.TabIndex = 9;
@@ -192,12 +193,23 @@
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
+            // lblFormato
+            // 
+            this.lblFormato.AutoSize = true;
+            this.lblFormato.Location = new System.Drawing.Point(68, 518);
+            this.lblFormato.Name = "lblFormato";
+            this.lblFormato.Size = new System.Drawing.Size(123, 13);
+            this.lblFormato.TabIndex = 10;
+            this.lblFormato.Text = "Formato Precio: 0000,00";
+            this.lblFormato.Visible = false;
+            // 
             // frmGestor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1200, 604);
+            this.Controls.Add(this.lblFormato);
             this.Controls.Add(this.btnFiltrar);
             this.Controls.Add(this.txtFiltro);
             this.Controls.Add(this.cboCriterio);
@@ -241,6 +253,7 @@
         private System.Windows.Forms.Label lblFiltro;
         private System.Windows.Forms.TextBox txtFiltro;
         private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Label lblFormato;
     }
 }
 
