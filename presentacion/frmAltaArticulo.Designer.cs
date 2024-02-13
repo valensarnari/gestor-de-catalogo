@@ -45,6 +45,7 @@
             this.pbxImagen = new System.Windows.Forms.PictureBox();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.lblFormato = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -195,11 +196,21 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // lblFormato
+            // 
+            this.lblFormato.AutoSize = true;
+            this.lblFormato.Location = new System.Drawing.Point(141, 292);
+            this.lblFormato.Name = "lblFormato";
+            this.lblFormato.Size = new System.Drawing.Size(123, 13);
+            this.lblFormato.TabIndex = 11;
+            this.lblFormato.Text = "Formato Precio: 0000,00";
+            // 
             // frmAltaArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 388);
+            this.Controls.Add(this.lblFormato);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.pbxImagen);
@@ -246,5 +257,6 @@
         private System.Windows.Forms.PictureBox pbxImagen;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Label lblFormato;
     }
 }

@@ -82,17 +82,37 @@ namespace presentacion
                 art.Marca = (Marca)cboMarca.SelectedItem;
                 art.Categoria = (Categoria)cboCategoria.SelectedItem;
                 art.ImagenUrl = txtImagenUrl.Text;
-                art.Precio = Decimal.Parse(txtPrecio.Text);
 
-                if (art.Id != 0)
+                if(convertirNumero(txtPrecio.Text) == "")
                 {
-                    articuloNegocio.modificar(art);
-                    MessageBox.Show("Artículo modificado exitosamente");
+                    MessageBox.Show("Por favor, verifique que todos los campos estén completos.");
+                    return;
+                }
+                else if(convertirNumero(txtPrecio.Text) == null)
+                {
+                    MessageBox.Show("Por favor, verifique que el campo Precio tenga el formato correcto.");
+                    return;
                 }
                 else
                 {
-                    articuloNegocio.agregar(art);
-                    MessageBox.Show("Artículo agregado exitosamente");
+                    if(estaVacio(art.Codigo, art.Nombre, art.Descripcion, art.ImagenUrl) == false)
+                    {
+                        MessageBox.Show("Por favor, verifique que todos los campos estén completos.");
+                        return;
+                    }
+
+                    art.Precio = Decimal.Parse(txtPrecio.Text);
+
+                    if (art.Id != 0)
+                    {
+                        articuloNegocio.modificar(art);
+                        MessageBox.Show("Artículo modificado exitosamente");
+                    }
+                    else
+                    {
+                        articuloNegocio.agregar(art);
+                        MessageBox.Show("Artículo agregado exitosamente");
+                    }
                 }
                 
                 Close();
@@ -119,6 +139,48 @@ namespace presentacion
             {
                 pbxImagen.Load("https://www.kurin.com/wp-content/uploads/placeholder-square.jpg");
             }
+        }
+        private string convertirNumero(string texto)
+        {
+            int cont = 0;
+            string cadena = null;
+
+            // si la cadena esta vacia devolverla para reiniciar dgv
+            if (texto == "")
+                return texto;
+
+            // chequear si la cadena tiene algo que no sea un numero o ,
+            foreach (char caracter in texto)
+            {
+                if (!(char.IsNumber(caracter)) && !(caracter == ','))
+                    return null;
+            }
+
+            // si la cadena no tiene comas, le agrego el ,00
+            if (texto.Contains(',') == false)
+                texto += ",00";
+
+            // si la cadena tiene una coma, lo reemplaza por un punto para la consulta
+            foreach (char caracter in texto)
+            {
+                if (caracter == ',')
+                    cont++;
+
+                if (cont < 1)
+                    cadena = texto.Replace(',', '.');
+            }
+
+            // verifico si la cadena tiene mas de dos comas
+            if (cont > 1)
+                return null;
+
+            return cadena;
+        }
+        private bool estaVacio(string cod, string nom, string desc, string url)
+        {
+            if (cod == "" || nom == "" || desc == "" || url == "")
+                return false;
+            return true;
         }
         // ------------------------------------
     }
