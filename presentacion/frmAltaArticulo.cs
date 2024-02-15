@@ -58,7 +58,9 @@ namespace presentacion
                     cboCategoria.SelectedValue = art.Categoria.Id;
                     txtImagenUrl.Text = art.ImagenUrl;
                     cargarImagen(txtImagenUrl.Text);
-                    txtPrecio.Text = art.Precio.ToString();
+
+                    Decimal num = Math.Truncate(art.Precio * 100) / 100;
+                    txtPrecio.Text = num.ToString();
                 }
             }
             catch (Exception ex)
@@ -173,6 +175,21 @@ namespace presentacion
             // verifico si la cadena tiene mas de dos comas
             if (cont > 1)
                 return null;
+
+            // verifico si la cadena tiene mas de dos numeros despues del punto
+            int flag = 0;
+            cont = 0;
+            foreach (char caracter in cadena)
+            {
+                if (flag == 1)
+                    cont++;
+
+                if (caracter == '.')
+                    flag = 1;
+
+                if (cont > 2)
+                    return null;
+            }
 
             return cadena;
         }

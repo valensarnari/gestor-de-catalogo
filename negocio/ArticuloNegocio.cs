@@ -34,9 +34,18 @@ namespace negocio
                     aux.Categoria = new Categoria();
                     aux.Categoria.Id = (int)acceso.Lector["IdCategoria"];
                     aux.Categoria.Descripcion = (string)acceso.Lector["Categoria"];
+                    
                     if (!(acceso.Lector["ImagenUrl"] is DBNull))
                         aux.ImagenUrl = (string)acceso.Lector["ImagenUrl"];
+
                     aux.Precio = (Decimal)acceso.Lector["Precio"];
+                    Decimal num = Math.Truncate(aux.Precio * 100) / 100;
+                    string num2 = num.ToString();
+                    if (tieneComa(num2) == 0)
+                        num2 += ",00";
+                    else if (tieneComa(num2) == 1)
+                        num2 += "0";
+                    aux.Precio = Decimal.Parse(num2);
 
                     lista.Add(aux);
                 }
@@ -204,9 +213,18 @@ namespace negocio
                     aux.Categoria = new Categoria();
                     aux.Categoria.Id = (int)acceso.Lector["IdCategoria"];
                     aux.Categoria.Descripcion = (string)acceso.Lector["Categoria"];
+
                     if (!(acceso.Lector["ImagenUrl"] is DBNull))
                         aux.ImagenUrl = (string)acceso.Lector["ImagenUrl"];
+
                     aux.Precio = (Decimal)acceso.Lector["Precio"];
+                    Decimal num = Math.Truncate(aux.Precio * 100) / 100;
+                    string num2 = num.ToString();
+                    if (tieneComa(num2) == 0)
+                        num2 += ",00";
+                    else if (tieneComa(num2) == 1)
+                        num2 += "0";
+                    aux.Precio = Decimal.Parse(num2);
 
                     lista.Add(aux);
                 }
@@ -220,5 +238,33 @@ namespace negocio
                 throw ex;
             }
         }
+
+        //----------------------------------------------
+        public int tieneComa(string num)
+        {
+            int cont = 0;
+            int flag = 0;
+
+            foreach(char c in num)
+            {
+                if (flag == 1)
+                    cont++;
+
+                if (c == ',')
+                    flag = 1;
+            }
+
+            if (cont == 1)
+                // retorna 1 si tiene un 0 al final de los decimales
+                return 1;
+
+            if (cont == 2)
+                // retorna 2 si tiene 2 decimales sin 0
+                return 2;
+
+            // retorna 0 si no tiene coma
+            return 0;
+        }
+        //----------------------------------------------
     }
 }

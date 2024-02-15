@@ -66,13 +66,14 @@ namespace presentacion
             try
             {
                 Articulo art = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
                 frmAltaArticulo frm = new frmAltaArticulo(art);
                 frm.ShowDialog();
                 cargar();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Por favor, seleccione un Articulo para modificar.");
             }
         }
 
@@ -93,7 +94,7 @@ namespace presentacion
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Por favor, seleccione un Articulo para eliminar.");
             }
         }
 
@@ -107,7 +108,7 @@ namespace presentacion
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Por favor, seleccione un Articulo para ver.");
             }
         }
 
@@ -204,7 +205,6 @@ namespace presentacion
             dgvArticulos.DataSource = listaArticulos;
             ocultarColumnas();
             cargarImagen(listaArticulos[0].ImagenUrl);
-            dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "0.00";
         }
         private void ocultarFiltro()
         {
@@ -280,6 +280,21 @@ namespace presentacion
             // verifico si la cadena tiene mas de dos comas
             if (cont > 1)
                 return null;
+
+            // verifico si la cadena tiene mas de dos numeros despues del punto
+            int flag = 0;
+            cont = 0;
+            foreach (char caracter in cadena)
+            {
+                if(flag == 1)
+                    cont++;
+
+                if(caracter == '.')
+                    flag = 1;
+                    
+                if (cont > 2)
+                    return null;
+            }
 
             return cadena;
         }

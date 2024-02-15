@@ -42,7 +42,10 @@ namespace presentacion
                 txtCategoria.Text = art.Categoria.Descripcion;
                 txtIdCategoria.Text = art.Categoria.Id.ToString();
                 txtImagenUrl.Text = art.ImagenUrl;
-                txtPrecio.Text = art.Precio.ToString();
+
+                Decimal num = Math.Truncate(art.Precio * 100) / 100;
+                txtPrecio.Text = num.ToString();
+                
                 cargarImagen(art.ImagenUrl);
             }
             catch (Exception ex)
